@@ -1,0 +1,20 @@
+extends ./layout.jade
+block contenido
+  form(action="/users", method="POST")
+    div(class="form-group")
+      label(for="email") Primer Digito
+      input(type="text", name="email", placeHolder="Email", id="email", class="form-control")
+    div
+      label(for="Segundo numero") Segundo numero
+      input(type="text", name="password", placeHolder="password", id="password", class="form-control")
+    div
+       label Sumar
+          input(type="radio", name="operacion", value="sumar")
+        label Restar
+          input(type="radio", name="operacion", value="restar")
+        label Multiplicar
+          input(type="radio", name="operacion", value="multiplicar")
+        label Dividir
+          input(type="radio", name="operacion", value="dividir")         
+    div
+       input(type="submit" value="resultado", class="btn btn-info")
