@@ -2,19 +2,19 @@ extends ./layout.jade
 block contenido
   form(action="/users", method="POST")
     div(class="form-group")
-      label(for="email") Primer Digito
-      input(type="text", name="email", placeHolder="Email", id="email", class="form-control")
+      label(for="Primer Numero") Primer numero
+      input(type="text", name="email", placeHolder="Segundo numero", id="Primer numero", class="form-control")
     div
       label(for="Segundo numero") Segundo numero
-      input(type="text", name="password", placeHolder="password", id="password", class="form-control")
+      input(type="text", name="password", placeHolder="Segundo numero ", id="password", class="form-control")
     div
        label Sumar
-          input(type="radio", name="operacion", value="sumar")
+          input(type="radio", name="operacion", value=" + ")
         label Restar
-          input(type="radio", name="operacion", value="restar")
+          input(type="radio", name="operacion", value=" - ")
         label Multiplicar
-          input(type="radio", name="operacion", value="multiplicar")
+          input(type="radio", name="operacion", value=" * ")
         label Dividir
-          input(type="radio", name="operacion", value="dividir")         
+          input(type="radio", name="operacion", value=" / ")         
     div
        input(type="submit" value="resultado", class="btn btn-info")
