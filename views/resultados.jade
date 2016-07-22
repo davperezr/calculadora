@@ -1,0 +1,30 @@
+var docs = require("./app").docs
+extends ./layout.jade
+block contenido
+ - var contenido = docs;
+ -var cont = 0;
+ 
+ table.table
+  thead
+    tr
+       th Primer Digito
+       th Operacion
+       th Segundo Digito
+       th Resultado
+       th Fecha
+  tbody
+   - for(var i = contenido.length - 1; i >= 0; i--)	
+      tr
+        td= contenido[i].primer
+        td= contenido[i].operacion 
+        td= contenido[i].segundo 
+        td= contenido[i].resultado  
+        td= contenido[i].fecha
+     
+      
+    
+
+
+   
+  a(href="login") Volver
+  

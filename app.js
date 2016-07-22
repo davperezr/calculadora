@@ -24,14 +24,14 @@ app.post("/users", function(req,res){
  num1 = parseInt(num1);
  num2 =  parseInt(num2);
  var val = req.body.operacion
+ req.session.prim_val = num1;
+ req.session.seg_val = num2;
+ req.session.ope = val;
  switch (val) {
   case ' + ':
     var resp = (num1+num2);
      var user = new User({primer: num1, segundo: num2, operacion: val, resultado: resp });
-       user.save(function(){
-       req.session.prim_val = num1;
-       req.session.seg_val = num2;
-       req.session.ope = val;
+       user.save(function(){ 
        req.session.resp = resp;
         res.redirect("./users");
        });
@@ -42,11 +42,8 @@ app.post("/users", function(req,res){
      var resp = (num1-num2);
      var user = new User({primer: num1, segundo: num2, operacion: val, resultado: resp });
        user.save(function(){
-       req.session.prim_val = num1;
-       req.session.seg_val = num2;
-       req.session.ope = val;
        req.session.resp = resp;
-        res.redirect("./users");
+       res.redirect("./users");
        });
        break;
 
@@ -54,9 +51,6 @@ app.post("/users", function(req,res){
      var resp = (num1*num2);
      var user = new User({primer: num1, segundo: num2, operacion: val, resultado: resp });
        user.save(function(){
-       req.session.prim_val = num1;
-       req.session.seg_val = num2;
-       req.session.ope = val;
        req.session.resp = resp;
         res.redirect("./users");
        });
@@ -66,9 +60,6 @@ app.post("/users", function(req,res){
       var resp = (num1/num2);
      var user = new User({primer: num1, segundo: num2, operacion: val, resultado: resp });
        user.save(function(){
-       req.session.prim_val = num1;
-       req.session.seg_val = num2;
-       req.session.ope = val;
        req.session.resp = resp;
         res.redirect("./users");
        });    
@@ -82,7 +73,6 @@ app.post("/users", function(req,res){
 
 app.get("/users", function(req,res){
   res.render('users', {primVal:  req.session.prim_val, segval: req.session.seg_val, op: req.session.ope, resultado: req.session.resp});
-//res.send("El resultado de "+ req.session.prim_val + req.session.ope + req.session.seg_val + " es = " + req.session.resp);
 
 });
 
@@ -100,6 +90,16 @@ app.get("/login", function(req,res){
   
 });
 
+app.get("/resultados", function(req, res){
+User.find({}, function(err,docs){
+  if(err){
+    return res.sendStatus(500).json;
+  }
+module.exports.docs= docs;
+  res.render("resultados", {docs: docs});
+
+ });
+});
 
 
 app.listen(8080);
