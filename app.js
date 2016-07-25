@@ -91,7 +91,7 @@ app.get("/login", function(req,res){
 });
 
 app.get("/resultados", function(req, res){
-User.find({}, function(err,docs){
+User.find({ estado: true }, function(err,docs){
   if(err){
     return res.sendStatus(500).json;
   }
@@ -103,7 +103,7 @@ User.find({}, function(err,docs){
 
 
 app.get("/:id", function(req,res){
-  User.findOneAndRemove({_id: req.params.id}, function(err){
+  User.update({_id: req.params.id},{$set: { estado: false }}, function(err){
     if(!err){
       res.redirect("resultados");
     }else{
@@ -112,5 +112,7 @@ app.get("/:id", function(req,res){
   
  })
 });
+
+
 
 app.listen(8080);

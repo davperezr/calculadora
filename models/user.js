@@ -8,7 +8,9 @@ var user_schema = new Schema ({
  segundo: Number,
  operacion:String,
  resultado: Number,
- fecha: { type: Date, default: Date.now }
+ fecha: { type: Date, default: Date.now },
+ estado: {type: Boolean, default: true }
+
 });
 
 // creacion de nuevo esquema para mongoose
