@@ -2,7 +2,7 @@ var docs = require("./app").docs
 extends ./layout.jade
 block contenido
  - var contenido = docs;
- -var cont = 0;
+ - var count = 0;
  
  table.table
   thead
@@ -13,13 +13,18 @@ block contenido
        th Resultado
        th Fecha
   tbody
-   - for(var i = contenido.length - 1; i >= 0; i--)	
-      tr
+   - for (var i = contenido.length - 1; i >= 0; i--) 
+       tr
         td= contenido[i].primer
         td= contenido[i].operacion 
         td= contenido[i].segundo 
         td= contenido[i].resultado  
-        td= contenido[i].fecha
+        td= contenido[i].fecha.getDate() +" / "+(contenido[i].fecha.getMonth()+1)+" / "+contenido[i].fecha.getFullYear()
+        td
+         form(action="/#{contenido[i]._id}")  
+          button.btn.btn-default.btn-lg(type='submit')
+            span.glyphicon.glyphicon-remove(aria-hidden='true') Eliminar
+   
      
       
     

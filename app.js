@@ -95,11 +95,22 @@ User.find({}, function(err,docs){
   if(err){
     return res.sendStatus(500).json;
   }
-module.exports.docs= docs;
+
   res.render("resultados", {docs: docs});
 
  });
 });
 
+
+app.get("/:id", function(req,res){
+  User.findOneAndRemove({_id: req.params.id}, function(err){
+    if(!err){
+      res.redirect("resultados");
+    }else{
+     res.sendStatus(500).json(err); 
+    }
+  
+ })
+});
 
 app.listen(8080);
