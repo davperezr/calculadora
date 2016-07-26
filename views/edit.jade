@@ -1,0 +1,21 @@
+extends ./layout.jade
+block contenido
+  form(action="/#{operacion.id}?_method=PUT" method="POST")
+ 
+    div(class="form-group")
+      label(for="Primer Numero") Primer numero
+      input(type="text", name="primer", value="#{operacion.primer}", id="Primer numero", class="form-control")
+    div
+      label(for="Segundo numero") Segundo numero
+      input(type="text", name="segundo", value="#{operacion.segundo}", id="password", class="form-control")
+    div
+       label Sumar
+          input(type="radio", name="operacion", value=" + ")
+        label Restar
+          input(type="radio", name="operacion", value=" - ")
+        label Multiplicar
+          input(type="radio", name="operacion", value=" * ")
+        label Dividir
+          input(type="radio", name="operacion", value=" / ")         
+    div
+       input(type="submit" value="actualizar", class="btn btn-info")

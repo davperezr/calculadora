@@ -3,8 +3,9 @@ var bodyParser = require("body-parser")
 var app = express();
 var User = require("./models/user").User
 var session = require("express-session");
+var router_app= require("./routes_app");
+var methodOverride = require("method-override");
 
-// sirve para usar/leer archivos estaticos(no cambian)
 app.use("/estatico",express.static('public'));
 app.use("/estatico",express.static('assets'));
 app.use(bodyParser.json());//para leer json
@@ -14,19 +15,21 @@ app.use(session({
  resave: false,
  saveUninitialized: false
 }));
-// seteo variable para leer archivos jade
+app.use(methodOverride("_method"));
+
 app.set("view engine", "jade");
 
+app.use("/", router_app);
 
 app.post("/users", function(req,res){
  var num1 = req.body.email;
  var num2 = req.body.password;
  num1 = parseInt(num1);
  num2 =  parseInt(num2);
- var val = req.body.operacion
+ var val = req.body.operacion;
  req.session.prim_val = num1;
  req.session.seg_val = num2;
- req.session.ope = val;
+ req.session.ope = val
  switch (val) {
   case ' + ':
     var resp = (num1+num2);
@@ -76,12 +79,6 @@ app.get("/users", function(req,res){
 
 });
 
-app.get("/", function(req,res){
- res.render("index");
-});
-
-
-
 app.get("/login", function(req,res){
   User.find(function(err,doc){
   console.log(doc);
@@ -102,13 +99,13 @@ User.find({ estado: true }, function(err,docs){
 });
 
 
-app.get("/:id", function(req,res){
-  User.update({_id: req.params.id},{$set: { estado: false }}, function(err){
-    if(!err){
-      res.redirect("resultados");
-    }else{
-     res.sendStatus(500).json(err); 
-    }
+ app.get("/:id", function(req,res){
+ User.update({_id: req.params.id},{$set: { estado: false }}, function(err){
+  if(!err){
+   res.redirect("resultados");
+ }else{
+ res.sendStatus(500).json(err); 
+ }
   
  })
 });
